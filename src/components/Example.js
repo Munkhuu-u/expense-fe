@@ -51,7 +51,6 @@ function Example() {
   }, []);
   return (
     <>
-      {/* line chart */}
       <h1 className="w-[110px] mx-auto mt-10 text-xl font-semibold capitalize">
         line Chart
       </h1>
