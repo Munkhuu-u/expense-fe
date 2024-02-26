@@ -1,2 +1,3 @@
 export * from "./Login";
-export * from "./Example";
+export * from "./BarChart";
+export * from "./NavBar";

@@ -1,9 +1,17 @@
-import React from "react";
 import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-
-function BarChart({ chartData }) {
-  return <Bar data={chartData} />;
-}
-
-export default BarChart;
+export const BarChart = ({ chartData }) => {
+  return (
+    <div>
+      <p>Bar Chart Title Here</p>
+      <Bar
+        data={chartData}
+        options={{
+          plugins: {
+            title: { display: true, text: "Users Gained between 2016-2020" },
+            legend: { display: false },
+          },
+        }}
+      />
+    </div>
+  );
+};
