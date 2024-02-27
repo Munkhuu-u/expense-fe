@@ -42,7 +42,7 @@ export const pieChartData = {
   datasets: [
     {
       label: "My First Dataset",
-      data: [3000000, 3000000, 3000000, 3000000, 3000000],
+      data: [3000000, 1500000, 3000000, 3000000, 3000000],
       backgroundColor: [
         // "rgb(28, 100, 242)",
         "#1C64F2",
