@@ -1,3 +1,4 @@
 export * from "./Login";
-export * from "./BarChart";
 export * from "./NavBar";
+export * from "./BarChart";
+export * from "./PieChart";

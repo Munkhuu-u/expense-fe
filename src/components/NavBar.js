@@ -7,11 +7,11 @@ export const Navbar = () => {
         <a className="btn btn-ghost text-xl">
           <Logo />
         </a>
-        <a className="btn rounded-full">Dashboard</a>
-        <a className="btn rounded-full">Records</a>
+        <a className="btn border-0">Dashboard</a>
+        <a className="btn border-0">Records</a>
       </div>
-      <div className="flex-none gap-2">
-        <a className="btn">
+      <div className="flex-none gap-2 ">
+        <a className="btn rounded-full">
           {" "}
           <Plus />
           Record
@@ -19,7 +19,7 @@ export const Navbar = () => {
         <div
           tabIndex={0}
           role="button"
-          className="btn btn-ghost btn-circle avatar"
+          className="btn btn-ghost btn-circle avatar "
         >
           <div className="w-10 rounded-full">
             <img

@@ -2,7 +2,7 @@
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { useState } from "react";
-import { data } from "../utils/data";
+import { data } from "../utils/graphData";
 // import PieChart from "../components/PieChart";
 import { BarChart } from "../components/BarChart";
 // import "./styles.css";
@@ -17,7 +17,8 @@ export default function app() {
   return (
     <div>
       <p>APP PAGE</p>
-      <BarChart chartData={chartData} />
+      {/* <BarChart chartData={chartData} /> */}
+      <BarChart />
     </div>
   );
 }
