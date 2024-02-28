@@ -1,5 +1,4 @@
-import Logo from "@/icons/Logo";
-import Plus from "@/icons/Plus";
+import { Plus, Logo } from "@/icons";
 export const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
