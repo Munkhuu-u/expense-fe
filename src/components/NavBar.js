@@ -1,13 +1,37 @@
 import { Plus, Logo } from "@/icons";
+import { Router } from "next/router";
+import react, { useState } from "react";
+import { useRouter } from "next/router";
+
 export const Navbar = () => {
+  const [bold, setBold] = useState("dashboard");
+  const router = useRouter();
   return (
     <div className="navbar bg-base-100 max-w-[1200px] m-auto">
       <div className="flex-1">
         <Logo />
-        <button className="btn bg-[white] shadow-none border-0">
+        <button
+          className={`btn bg-[white] shadow-none border-0 ${
+            bold == "dashboard" ? "font-bold" : "font-light"
+          }`}
+          onClick={() => {
+            setBold("dashboard");
+            router.push("./dashboard");
+          }}
+        >
           Dashboard
         </button>
-        <button className="btn bg-[white] shadow-none border-0">Records</button>
+        <button
+          className={`btn bg-[white] shadow-none border-0 ${
+            bold == "records" ? "font-bold" : "font-light"
+          }`}
+          onClick={() => {
+            setBold("records");
+            router.push("./records");
+          }}
+        >
+          Records
+        </button>
       </div>
       <div className="flex-none gap-2 "></div>
       <div className="flex flex-row gap-6">

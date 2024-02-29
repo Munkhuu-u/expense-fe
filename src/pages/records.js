@@ -5,10 +5,11 @@ import { Layout } from "@/layout/Layout";
 import { recordsData } from "../utils/recordsData";
 import { CatHouse, Logo } from "@/icons";
 
-export default function dashboard() {
+export default function records() {
   return (
     <div className="py-[32px] bg-base-200 pt-8 pb-10" data-theme="myTheme">
-      <div className="max-w-[1200px] m-auto">
+      fsdgfgdsb
+      {/* <div className="max-w-[1200px] m-auto">
         <div className="flex flex-row mb-[32px] bg-base-200 justify-between">
           <div className="h-[216px] bg-primary w-[384px] rounded-2xl">
             Noise
@@ -58,11 +59,11 @@ export default function dashboard() {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-dashboard.getLayout = function getLayout(page) {
+records.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };
