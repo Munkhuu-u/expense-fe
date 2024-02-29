@@ -15,7 +15,7 @@ export const Loader = ({ showLoader, setShowLoader }) => {
         <button
           className="btn"
           onClick={() => {
-            setShowLoader("stepOne");
+            setShowLoader("step1");
           }}
         >
           NEXT /dev/

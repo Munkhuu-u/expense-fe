@@ -37,7 +37,7 @@ export const Login = ({ showLoader, setShowLoader }) => {
           />
         </div>
         <div>
-          <button class="btn btn-block bg-blue-600  rounded-3xl text-white text-xl hover:text-blue-600 hover:border-blue-600 hover:border-2">
+          <button class="btn btn-block bg-primary rounded-3xl text-base-100 text-xl hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100">
             Log in
           </button>
         </div>
@@ -45,7 +45,7 @@ export const Login = ({ showLoader, setShowLoader }) => {
       <div className="m-auto flex flex-row gap-4 justify-center items-center text-md">
         <span className="cursor-default">Don’t have account?</span>
         <span
-          class="underline text-blue-600 cursor-pointer"
+          class="underline text-primary cursor-pointer"
           onClick={() => {
             router.push("./signup");
           }}

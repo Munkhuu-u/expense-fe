@@ -6,7 +6,7 @@ export default function login() {
       <div className={`w-1/2`}>
         <Login />
       </div>
-      <div className="w-1/2 bg-blue-600"></div>
+      <div className="w-1/2 bg-primary"></div>
     </div>
   );
 }

@@ -1,25 +1,21 @@
 import { Plus, Logo } from "@/icons";
 export const Navbar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 max-w-[1200px] m-auto">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">
-          <Logo />
-        </a>
-        <a className="btn border-0">Dashboard</a>
-        <a className="btn border-0">Records</a>
+        <Logo />
+        <button className="btn bg-[white] shadow-none border-0">
+          Dashboard
+        </button>
+        <button className="btn bg-[white] shadow-none border-0">Records</button>
       </div>
-      <div className="flex-none gap-2 ">
-        <a className="btn rounded-full">
-          {" "}
+      <div className="flex-none gap-2 "></div>
+      <div className="flex flex-row gap-6">
+        <button class="btn bg-primary rounded-3xl text-base-100 hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100">
           <Plus />
           Record
-        </a>
-        <div
-          tabIndex={0}
-          role="button"
-          className="btn btn-ghost btn-circle avatar "
-        >
+        </button>
+        <div role="button" className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
             <img
               alt="Tailwind CSS Navbar component"
