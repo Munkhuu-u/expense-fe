@@ -4,6 +4,7 @@ import { pieChartData } from "@/utils/graphData";
 import { Layout } from "@/layout/Layout";
 import { recordsData } from "../utils/recordsData";
 import { transaction } from "@/utils/transaction";
+import React, { useState, useEffect, use } from "react";
 import {
   CatHouse,
   Eye,
@@ -32,6 +33,27 @@ function record() {
       label: MIN,
     },
   ];
+
+  const [transData, setTransData] = useState("");
+
+  async function getData() {
+    const data = await fetch("http://localhost:3001/transaction");
+    const trans = await data.json();
+    await setTransData(trans);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log("transData: ", transData);
+
+  const t = new Date();
+  const tmill = t - t.getMilliseconds();
+  console.log("t: ", t);
+  console.log("tmill: ", tmill);
+  console.log("t: ", t - tmill);
+
   return (
     <div className="flex flex-row p-4 gap-6 bg-base-200">
       {/* Side menu */}
