@@ -39,14 +39,38 @@ function record() {
   async function getData() {
     const data = await fetch("http://localhost:3001/transaction");
     const trans = await data.json();
-    await setTransData(trans);
+    setTransData(trans);
   }
-
   useEffect(() => {
     getData();
   }, []);
 
-  console.log("transData: ", transData);
+  // console.log("transData: ", transData?.transaction);
+
+  const transToday = transData?.transaction?.filter((tr) => {
+    console.log("tra: ", tr);
+    const today = new Date();
+    const tomorrow = today.getDate() + 1;
+    const trAt = new Date(tr.createdAt);
+
+    console.log(
+      "local time: ",
+      trAt.toLocaleDateString("en", { timeZone: "Asia/Hong_Kong" })
+    );
+    console.log("dates: ", today, trAt);
+    console.log("year: ", today.getFullYear(), trAt.getFullYear());
+    console.log("month: ", today.getMonth(), trAt.getMonth());
+    console.log("day: ", today.getDate(), trAt.getDate());
+    return (
+      today.getFullYear() == trAt.getFullYear() &&
+      today.getMonth() == trAt.getMonth() &&
+      today.getDate() == trAt.getDate()
+      // today.getTime() <= createdAt.getTime() &&
+      // createdAt.getTime() <= tomorrow.getTime()
+    );
+  });
+
+  console.log("transToday: ", transToday);
 
   const t = new Date();
   const tmill = t - t.getMilliseconds();
