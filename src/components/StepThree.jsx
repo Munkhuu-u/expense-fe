@@ -33,7 +33,7 @@ export const StepThree = ({ showLoader, setShowLoader, step, setStep }) => {
           class="btn btn-block bg-primary rounded-3xl text-base-100 text-xl hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100"
           onClick={() => {
             // setShowLoader("step4");
-            router.push("./");
+            router.push("./dashboard");
           }}
         >
           Go to Dashboard

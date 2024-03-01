@@ -3,67 +3,176 @@ import { Pie } from "react-chartjs-2";
 import { pieChartData } from "@/utils/graphData";
 import { Layout } from "@/layout/Layout";
 import { recordsData } from "../utils/recordsData";
-import { CatHouse, Logo } from "@/icons";
+import {
+  CatHouse,
+  Eye,
+  LeftArrow,
+  Logo,
+  Plus,
+  PlusBlue,
+  RightArrow,
+  RightTriangle,
+} from "@/icons";
+import { Slider } from "@mui/material";
+import { categories } from "@/utils/categories";
 
-export default function records() {
+import Record from "@/components/Record";
+
+function record() {
+  const MAX = 1000;
+  const MIN = 0;
+  const marks = [
+    {
+      value: MAX,
+      label: MAX,
+    },
+    {
+      value: MIN,
+      label: MIN,
+    },
+  ];
   return (
-    <div className="py-[32px] bg-base-200 pt-8 pb-10" data-theme="myTheme">
-      fsdgfgdsb
-      {/* <div className="max-w-[1200px] m-auto">
-        <div className="flex flex-row mb-[32px] bg-base-200 justify-between">
-          <div className="h-[216px] bg-primary w-[384px] rounded-2xl">
-            Noise
-            <img src="../images/Noise.png"></img>
-          </div>
-          <div className="h-[216px] bg-base-100 w-[384px] rounded-2xl">
-            asdfg
-          </div>
-          <div className="h-[216px] bg-base-100 w-[384px] rounded-2xl">
-            asdfg
+    <div className="flex flex-row p-4 gap-6">
+      {/* Side menu */}
+      <div className="flex flex-col p-4 gap-6 w-[284px]">
+        {/* Record +Add  */}
+        <div className="flex flex-col items-start gap-6">
+          <h2 class="text-2xl font-semibold text-center text-gray-700">
+            Records
+          </h2>
+          <button class="btn btn-sm bg-primary rounded-3xl text-base-100 text-xl hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100 w-full">
+            <Plus />
+            Add
+          </button>
+        </div>
+
+        {/* Search  */}
+        <div className="">
+          <label class="label"></label>
+          <input
+            type="text"
+            placeholder="Search"
+            className="input input-bordered input-xs w-full max-w-xs bg-base-200 h-[30px] text-lg"
+          />
+        </div>
+
+        {/* Types  */}
+        <div className="flex flex-col items-start gap-4">
+          <h2 class="text-md font-semibold text-center text-gray-700">Types</h2>
+          {/* <div className="form-control gap-1"> */}
+          <div className="flex flex-col gap-1">
+            <label className="label cursor-pointer text-left flex justify-start gap-2 px-3 py-1">
+              <input
+                type="radio"
+                name="radio-10"
+                className="radio checked:bg-primary"
+                checked
+              />
+              All
+            </label>
+            <label className="label cursor-pointer text-left flex justify-start gap-2 px-3 py-1">
+              <input
+                type="radio"
+                name="radio-10"
+                className="radio checked:bg-primary"
+                checked
+              />
+              Income
+            </label>
+            <label className="label cursor-pointer text-left flex justify-start gap-2 px-3 py-1">
+              <input
+                type="radio"
+                name="radio-10"
+                className="radio checked:bg-primary"
+                checked
+              />
+              Expense
+            </label>
           </div>
         </div>
-        <div className="flex flex-row max-w-[1220px] m-auto gap-10">
-          <div className="w-1/2 h-[284px] rounded-lg bg-white py-[16px] px-[24px] bg-base-100">
-            <BarChart />
+
+        {/* Category  */}
+        <div className="flex flex-col items-start gap-4">
+          <div className="flex justify-between w-full">
+            <h2 class="text-md font-semibold text-gray-700">Category</h2>
+            <p className="text-base-300">Clear</p>
           </div>
-          <div className="w-1/2 mb-8 flex flex-row rounded-lg bg-base-100 py-4 px-6 h-[284px]">
-            <PieChart />
-            <PieChartTable pieChartData={pieChartData} />
-          </div>
-        </div>
-        <div className="bg-base-100 rounded-xl">
-          <div className="py-4 px-5 flex flex-row justify-start font-bold border-b-2 border-base-200">
-            <p>Last Records</p>
-          </div>
-          <div className="px-6 divide-y divide-base-200">
-            {recordsData.records.map((e, index) => {
+          <div className="flex flex-col gap-2 w-full">
+            {categories.categories.map((category) => {
               return (
-                <div className={`flex flex-row justify-between py-5`}>
-                  <div className="flex flex-row items-center gap-4">
-                    <CatHouse />
-                    <div>
-                      <h2>{e.recordName}</h2>
-                      <p className="text-base-300">{e.recordTime}</p>
-                    </div>
-                  </div>
-                  <p
-                    className={`${
-                      e.direction == "income" ? "text-error" : "text-accent"
-                    }`}
-                  >
-                    {e.direction == "income" ? "-" : "+"}
-                    {e.amount}
-                  </p>
+                <div className="flex flex-row justify-between items-center ">
+                  <button className="flex gap-2 py-1 px-3">
+                    <Eye /> {category.name}
+                  </button>
+                  <RightTriangle />
                 </div>
               );
             })}
+            <div className="flex flex-row justify-between items-center">
+              <button className="flex gap-2 py-1 px-3 items-center">
+                <PlusBlue /> <p>Add Category</p>
+              </button>
+            </div>
           </div>
         </div>
-      </div> */}
+
+        {/* Amount Range  */}
+        <div className="flex flex-col gap-4">
+          <h2 class="text-md font-semibold text-gray-700">Amount Range</h2>
+          <div className="flex flex-row gap-4">
+            <input
+              type="text"
+              placeholder="0"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <input
+              type="text"
+              placeholder="1000"
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <Slider
+            getAriaLabel={() => "Temperature"}
+            aria-label="Always visible"
+            // getAriaValueText={"valuetext"}
+            // value={"asgd"}
+            step={50}
+            max={MAX}
+            min={MIN}
+            marks={marks}
+            defaultValue={[10, 340]}
+            valueLabelDisplay="auto"
+          />
+        </div>
+      </div>
+
+      {/* Main list */}
+      <div className="">
+        {/* Last 30 days Sort Select all*/}
+        <div>
+          {/* Last 30 days Sort */}
+          <div className="flex flex-row items-center gap-4">
+            <button className="bg-base-200 p-[6px] rounded-lg">
+              <LeftArrow />
+            </button>
+            <p>Last 30 days</p>
+            <button className="bg-base-200 p-[6px] rounded-lg">
+              <RightArrow />
+            </button>
+          </div>
+
+          {/* Select all */}
+          <div></div>
+        </div>
+
+        {/* Today */}
+        <div>{/* some map fn */}</div>
+      </div>
     </div>
   );
 }
+export default record;
 
-records.getLayout = function getLayout(page) {
+record.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };

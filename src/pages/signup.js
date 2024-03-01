@@ -27,7 +27,6 @@ export default function signup() {
       <div className={`${showLoader == "step2" ? "pt-10 block" : "hidden"}`}>
         <StepTwo
           setStep={setStep}
-          s
           step={step}
           showLoader={showLoader}
           setShowLoader={setShowLoader}
