@@ -3,6 +3,7 @@ import { Pie } from "react-chartjs-2";
 import { pieChartData } from "@/utils/graphData";
 import { Layout } from "@/layout/Layout";
 import { recordsData } from "../utils/recordsData";
+import { transaction } from "@/utils/transaction";
 import {
   CatHouse,
   Eye,
@@ -32,9 +33,9 @@ function record() {
     },
   ];
   return (
-    <div className="flex flex-row p-4 gap-6">
+    <div className="flex flex-row p-4 gap-6 bg-base-200">
       {/* Side menu */}
-      <div className="flex flex-col p-4 gap-6 w-[284px]">
+      <div className="flex flex-col p-4 gap-6 w-[284px] bg-base-100 rounded-xl">
         {/* Record +Add  */}
         <div className="flex flex-col items-start gap-6">
           <h2 class="text-2xl font-semibold text-center text-gray-700">
@@ -147,26 +148,79 @@ function record() {
       </div>
 
       {/* Main list */}
-      <div className="">
+      <div className="w-full">
         {/* Last 30 days Sort Select all*/}
         <div>
           {/* Last 30 days Sort */}
-          <div className="flex flex-row items-center gap-4">
-            <button className="bg-base-200 p-[6px] rounded-lg">
-              <LeftArrow />
-            </button>
-            <p>Last 30 days</p>
-            <button className="bg-base-200 p-[6px] rounded-lg">
-              <RightArrow />
-            </button>
+          <div className="flex flex-row w-full justify-between mb-4">
+            <div className="flex flex-row items-center gap-4">
+              <button className="bg-base-200 p-[6px] rounded-lg">
+                <LeftArrow />
+              </button>
+              <p>Last 30 days</p>
+              <button className="bg-base-200 p-[6px] rounded-lg">
+                <RightArrow />
+              </button>
+            </div>
+            <select className="select w-full max-w-[180px] border-1 border-base-300 bg-base-100">
+              <option disabled selected>
+                Sort
+              </option>
+              <option>Newest first</option>
+              <option>Oldest first</option>
+            </select>
           </div>
 
           {/* Select all */}
-          <div></div>
+          <div className="flex flex-row justify-between items-center gap-4 bg-base-100 rounded-xl px-6 py-3 mb-6">
+            <div className="form-control flex flex-row justify-start items-center gap-4">
+              <label className="label cursor-pointer">
+                <input type="checkbox" className="checkbox checkbox-primary" />
+              </label>
+              <span className="label-text text-base">Select all</span>
+            </div>
+            <p>{" - 35,500 ₮"}</p>
+          </div>
         </div>
 
         {/* Today */}
-        <div>{/* some map fn */}</div>
+        <div className="flex flex-col gap-3 h-lvh overflow-scroll">
+          {transaction.transaction.map((e) => {
+            const createdDate = new Date(e.createdAt);
+            const asdfg = new Date();
+            console.log("asdfg: ", asdfg);
+            console.log("typeof asdfg: ", typeof asdfg);
+            return (
+              <div
+                className={`flex flex-row justify-between bg-base-100 px-6 py-3 rounded-xl`}
+              >
+                <div className="flex flex-row items-center gap-4">
+                  <label className="label cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                    />
+                  </label>
+                  <CatHouse />
+                  <div>
+                    <h2>{e.description}</h2>
+                    <p className="text-base-300">{e.createdAt}</p>
+                  </div>
+                </div>
+                <p
+                  className={`${
+                    e.transaction_type == "INCOME"
+                      ? "text-error"
+                      : "text-accent"
+                  }`}
+                >
+                  {e.transaction_type == "INCOME" ? "-" : "+"}
+                  {e.amount}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
