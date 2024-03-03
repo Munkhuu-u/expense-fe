@@ -1,4 +1,4 @@
-import { BarChart, PieChart, PieChartTable } from "@/components";
+import { BarChart, PieChart, PieChartTable, Transaction } from "@/components";
 import { Pie } from "react-chartjs-2";
 import { pieChartData } from "@/utils/graphData";
 import { Layout } from "@/layout/Layout";
@@ -21,62 +21,59 @@ import { categories } from "@/utils/categories";
 import Record from "@/components/Record";
 
 function record() {
-  const MAX = 1000;
-  const MIN = 0;
-  const marks = [
+  const [transData, setTransData] = useState("");
+
+  const sliderData = {
+    MAX: 1000,
+    MIN: 0,
+  };
+  sliderData.marks = [
     {
-      value: MAX,
-      label: MAX,
+      value: sliderData.MAX,
+      label: sliderData.MAX,
     },
     {
-      value: MIN,
-      label: MIN,
+      value: sliderData.MIN,
+      label: sliderData.MIN,
     },
   ];
 
-  const [transData, setTransData] = useState("");
-
-  async function getData() {
+  async function getTodayTrans() {
     const data = await fetch("http://localhost:3001/transaction");
     const trans = await data.json();
     setTransData(trans);
   }
+
   useEffect(() => {
-    getData();
+    getTodayTrans();
   }, []);
 
-  // console.log("transData: ", transData?.transaction);
-
   const transToday = transData?.transaction?.filter((tr) => {
-    console.log("tra: ", tr);
+    // console.log("tra: ", tr);
     const today = new Date();
-    const tomorrow = today.getDate() + 1;
-    const trAt = new Date(tr.createdAt);
+    let trAt = new Date(tr.createdAt);
+    trAt.setHours(trAt.getHours() - 8);
 
-    console.log(
-      "local time: ",
-      trAt.toLocaleDateString("en", { timeZone: "Asia/Hong_Kong" })
-    );
-    console.log("dates: ", today, trAt);
-    console.log("year: ", today.getFullYear(), trAt.getFullYear());
-    console.log("month: ", today.getMonth(), trAt.getMonth());
-    console.log("day: ", today.getDate(), trAt.getDate());
+    console.log("trAt: ", trAt);
+
     return (
       today.getFullYear() == trAt.getFullYear() &&
       today.getMonth() == trAt.getMonth() &&
       today.getDate() == trAt.getDate()
-      // today.getTime() <= createdAt.getTime() &&
-      // createdAt.getTime() <= tomorrow.getTime()
     );
   });
 
-  console.log("transToday: ", transToday);
+  const transYesterday = transData?.transaction?.filter((tr) => {
+    const today = new Date();
+    const trAt = new Date(tr.createdAt);
+    trAt.setHours(trAt.getHours() - 8);
 
-  const t = new Date();
-  const tmill = t - t.getMilliseconds();
-  console.log("t: ", t);
-  console.log("tmill: ", tmill);
-  console.log("t: ", t - tmill);
+    return (
+      today.getFullYear() == trAt.getFullYear() &&
+      today.getMonth() == trAt.getMonth() &&
+      today.getDate() - 1 == trAt.getDate()
+    );
+  });
 
   return (
     <div className="flex flex-row p-4 gap-6 bg-base-200">
@@ -184,9 +181,9 @@ function record() {
             // getAriaValueText={"valuetext"}
             // value={"asgd"}
             step={50}
-            max={MAX}
-            min={MIN}
-            marks={marks}
+            max={sliderData.MAX}
+            min={sliderData.MIN}
+            marks={sliderData.marks}
             defaultValue={[10, 340]}
             valueLabelDisplay="auto"
           />
@@ -229,48 +226,37 @@ function record() {
           </div>
         </div>
 
-        {/* Today */}
-        <div className="flex flex-col gap-3 h-lvh overflow-scroll">
-          {transaction.transaction.map((e) => {
-            const createdDate = new Date(e.createdAt);
-            const asdfg = new Date();
-            console.log("asdfg: ", asdfg);
-            console.log("typeof asdfg: ", typeof asdfg);
-            return (
-              <div
-                className={`flex flex-row justify-between bg-base-100 px-6 py-3 rounded-xl`}
-              >
-                <div className="flex flex-row items-center gap-4">
-                  <label className="label cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-primary"
-                    />
-                  </label>
-                  <CatHouse />
-                  <div>
-                    <h2>{e.description}</h2>
-                    <p className="text-base-300">{e.createdAt}</p>
-                  </div>
-                </div>
-                <p
-                  className={`${
-                    e.transaction_type == "INCOME"
-                      ? "text-error"
-                      : "text-accent"
-                  }`}
-                >
-                  {e.transaction_type == "INCOME" ? "-" : "+"}
-                  {e.amount}
-                </p>
-              </div>
-            );
-          })}
+        {/* Transactions */}
+        <div className="h-2/5 overflow-scroll">
+          {/* Today */}
+          <div className="flex flex-col items-start gap-3">
+            <h2 class="text-md font-semibold text-center text-gray-700">
+              Today
+            </h2>
+            <div className="flex flex-col gap-3 overflow-scroll w-full mb-6">
+              {transToday?.map((e) => {
+                return <Transaction e={e} />;
+              })}
+            </div>
+          </div>
+
+          {/* Yesterday */}
+          <div className="flex flex-col items-start gap-3">
+            <h2 class="text-md font-semibold text-center text-gray-700">
+              Yesterday
+            </h2>
+            <div className="flex flex-col gap-3 overflow-scroll w-full">
+              {transYesterday?.map((e) => {
+                return <Transaction e={e} />;
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
 export default record;
 
 record.getLayout = function getLayout(page) {
