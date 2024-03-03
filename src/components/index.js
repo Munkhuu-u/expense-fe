@@ -1,3 +1,4 @@
+export * from "./AddRecord";
 export * from "./Login";
 export * from "./SignUp";
 export * from "./Loader";

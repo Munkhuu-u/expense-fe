@@ -10,3 +10,4 @@ export * from "./Eye";
 export * from "./RightTriangle";
 export * from "./RightArrow";
 export * from "./LeftArrow";
+export * from "./X";
