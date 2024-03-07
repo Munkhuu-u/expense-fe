@@ -45,6 +45,7 @@ export const Navbar = () => {
           Record
         </button>
 
+        {/* Modal */}
         <dialog id="my_modal_4" className="modal">
           <div className="modal-box w-[792px] max-w-5xl divide-y divide-base-200 px-6">
             <div className="mb-5">
@@ -79,6 +80,13 @@ export const Navbar = () => {
                     }}
                     variant="standard"
                   />
+                </div>
+                <div>
+                  {/* <input
+                    type="text"
+                    placeholder="Search"
+                    className="input input-bordered input-xs w-full max-w-xs bg-base-200 h-[30px] text-lg"
+                  /> */}
                 </div>
 
                 <p className="bg-primary px-6 py-5">

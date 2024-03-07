@@ -1,7 +1,7 @@
 import { SignUp, Loader, StepOne, StepTwo, StepThree } from "../components";
 import React, { useState } from "react";
 
-export default function signup() {
+export default function signUp() {
   const [showLoader, setShowLoader] = useState("signup");
   const [step, setStep] = useState(1);
   return (
