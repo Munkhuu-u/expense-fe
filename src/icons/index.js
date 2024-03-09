@@ -11,3 +11,6 @@ export * from "./RightTriangle";
 export * from "./RightArrow";
 export * from "./LeftArrow";
 export * from "./X";
+export * from "./GreenUpArrow";
+export * from "./Spiral";
+export * from "./NFC";

@@ -1,4 +1,4 @@
-export function Logo() {
+export function Spiral() {
   return (
     <svg
       width="224"

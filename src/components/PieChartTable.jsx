@@ -2,8 +2,8 @@ import { Pie } from "react-chartjs-2";
 
 export const PieChartTable = ({ pieChartData }) => {
   return (
-    <div className="flex flex-row items-center">
-      <div className="flex flex-col gap-4 mr-3">
+    <div className="flex flex-row gap-5">
+      <div className="flex flex-col justify-between h-full">
         {pieChartData.labels.map((sector, index) => {
           return (
             <div
@@ -16,8 +16,8 @@ export const PieChartTable = ({ pieChartData }) => {
           );
         })}
       </div>
-      <div className="flex flex-row gap-4">
-        <div className="flex flex-col gap-4 w-[100px]">
+      <div className="flex flex-row gap-10">
+        <div className="flex flex-col gap-3">
           {pieChartData.labels.map((sector, index) => {
             return (
               <div className={`flex flex-row ${""}`}>
@@ -26,14 +26,14 @@ export const PieChartTable = ({ pieChartData }) => {
             );
           })}
         </div>
-        <div className="flex flex-col gap-4 w-[100px]">
+        <div className="flex flex-col justify-around">
           {pieChartData.labels.map((sector, index) => {
             return (
               <p className="flex flex-col gap-4">{`${pieChartData.datasets[0].data[index]} ₮`}</p>
             );
           })}
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col justify-around">
           {pieChartData.labels.map((cat, index) => {
             let sum = 0;
             pieChartData.datasets[0].data.map((e) => {
