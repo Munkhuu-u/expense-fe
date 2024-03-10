@@ -8,15 +8,14 @@ export const SignUp = ({ showLoader, setShowLoader }) => {
   const AddUserURL = "http://localhost:3001/addUser";
 
   async function handlerSignUp(e) {
-    console.log("FE handler working fine");
     e.preventDefault();
+
     const data = {
       name: e.target.Name.value,
       mail: e.target.Email.value,
       password: e.target.Password.value,
       id: uuidv4(),
     };
-    console.log("data: ", data);
 
     const options = {
       method: "POST",
@@ -25,10 +24,9 @@ export const SignUp = ({ showLoader, setShowLoader }) => {
       },
       body: JSON.stringify(data),
     };
-    console.log("options: ", options.body);
 
     const fetchData = await fetch(AddUserURL, options);
-    const fetchJSON = await fetchData.text();
+    const fetchJSON = await fetchData.json();
   }
 
   return (

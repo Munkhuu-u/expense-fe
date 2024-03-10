@@ -18,7 +18,6 @@ export const AddRecord = () => {
           <button>close</button>
         </form>
       </dialog>
-      ;
     </div>
   );
 };
