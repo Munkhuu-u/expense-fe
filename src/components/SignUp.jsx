@@ -5,19 +5,30 @@ import { Logo } from "../icons";
 export const SignUp = ({ showLoader, setShowLoader }) => {
   const router = useRouter();
 
+  const AddUserURL = "http://localhost:3001/addUser";
+
   async function handlerSignUp(e) {
+    console.log("FE handler working fine");
     e.preventDefault();
-    // console.log("uuidv4(): ", uuidv4());
-    const user = {
+    const data = {
       name: e.target.Name.value,
       mail: e.target.Email.value,
       password: e.target.Password.value,
       id: uuidv4(),
     };
+    console.log("data: ", data);
 
-    const fetchData = await fetch("localhost:3001/addUser");
-    const data = await fetchData.json();
-    console.log("consoling in FE data: ", data);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    console.log("options: ", options.body);
+
+    const fetchData = await fetch(AddUserURL, options);
+    const fetchJSON = await fetchData.text();
   }
 
   return (
@@ -29,7 +40,7 @@ export const SignUp = ({ showLoader, setShowLoader }) => {
         </div>
         <div className="flex flex-col items-center gap-3">
           <h1 class="text-3xl font-semibold text-center text-gray-700">
-            Create Gel account{" "}
+            Create Gel account
           </h1>
           <p>Sign up below to create your Wallet account</p>
         </div>
@@ -64,54 +75,6 @@ export const SignUp = ({ showLoader, setShowLoader }) => {
             value="Sign up"
           />
         </form>
-        {/* <form class="space-y-4" onSubmit={handlerSignUp}>
-          <div>
-            <label class="label"></label>
-            <input
-              type="name"
-              placeholder="Name"
-              class="w-full input input-bordered"
-            />
-          </div>
-          <div>
-            <label class="label">
-              <span class="text-base label-text"></span>
-            </label>
-            <input
-              type="text"
-              placeholder="Email"
-              class="w-full input input-bordered"
-            />
-          </div>
-          <div>
-            <label class="label">
-              <span class="text-base label-text"></span>
-            </label>
-            <input
-              type="password"
-              placeholder="Password"
-              class="w-full input input-bordered"
-            />
-          </div>
-          <div>
-            <label class="label">
-              <span class="text-base label-text"></span>
-            </label>
-            <input
-              type="password"
-              placeholder="Re-Password"
-              class="w-full input input-bordered"
-            />
-          </div>
-          <div>
-            <button
-              type="submit"
-              class="btn btn-block bg-primary rounded-3xl text-base-100 text-xl hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100"
-            >
-              Sign up
-            </button>
-          </div>
-        </form> */}
         <div className="m-auto flex flex-row gap-4 justify-center items-center text-md">
           <span className="cursor-default">Already have an account?</span>
           <span
