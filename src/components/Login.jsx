@@ -18,7 +18,9 @@ export const Login = ({ showLoader, setShowLoader }) => {
       body: JSON.stringify(data),
     };
     console.log("options: ", options);
+
     const fData = await fetch("http://localhost:3001/sign-in", options);
+    const jData = await fData.json();
   };
 
   return (
