@@ -1,37 +1,55 @@
 export const categories = {
   categories: [
     {
-      name: "Food & Drinks",
+      name: "Housing",
+    },
+    {
+      name: "Transportation",
     },
     {
       name: "Food & Drinks",
     },
     {
-      name: "Food & Drinks",
+      name: "Utilities",
     },
     {
-      name: "Food & Drinks",
+      name: "Insurance",
     },
     {
-      name: "Food & Drinks",
+      name: "Debt Payments",
     },
     {
-      name: "Food & Drinks",
+      name: "Personal Care",
     },
     {
-      name: "Food & Drinks",
+      name: "Entertainment",
     },
     {
-      name: "Food & Drinks",
+      name: "Education",
     },
     {
-      name: "Food & Drinks",
+      name: "Healthcare",
     },
     {
-      name: "Food & Drinks",
+      name: "Childcare",
     },
     {
-      name: "Food & Drinks",
+      name: "Taxes",
+    },
+    {
+      name: "Travel",
+    },
+    {
+      name: "Clothing",
+    },
+    {
+      name: "Charitable Contributions",
+    },
+    {
+      name: "Business Expenses",
+    },
+    {
+      name: "Miscellaneous",
     },
   ],
 };

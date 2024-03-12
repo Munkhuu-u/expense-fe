@@ -1,9 +1,41 @@
+import React from "react";
 import { useRouter } from "next/router";
 import { Logo, Currency, Coin } from "../icons";
+import { useState } from "react";
 // import { SignUp } from "../layout/SignUp";
 
-export const StepOne = ({ showLoader, setShowLoader, step, setStep }) => {
+export const StepOne = ({
+  showLoader,
+  setShowLoader,
+  step,
+  setStep,
+  newID,
+}) => {
+  const [currency, setCurrency] = useState("MNT - Mongolian Tugrik");
   const router = useRouter();
+  const updateURL = "http://localhost:3001/updateCurrency";
+
+  async function HandlerCurrency() {
+    // e.preventDefault();
+
+    const data = {
+      id: newID,
+      currency: currency,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const fetchData = await fetch(updateURL, options);
+    const fetchJSON = await fetchData.json();
+    console.log("fetchJSON: ", fetchJSON);
+  }
+
   return (
     <div class="w-1/2 m-auto bg-white lg:max-w-md flex flex-col items-center gap-[141px]">
       <div className="flex flex-col justify-center items-center gap-12">
@@ -18,17 +50,19 @@ export const StepOne = ({ showLoader, setShowLoader, step, setStep }) => {
         </ul>
       </div>
       <div
-        className={`flex flex-col justify-center items-center gap-4 w-[308px] ${
-          ""
-          // showLoader == "step1" ? "block" : "hidden"
-        }`}
+        className={`flex flex-col justify-center items-center gap-4 w-[308px]`}
       >
         <Currency />
         <h1 class="text-3xl font-semibold text-center text-gray-700">
           Select base currency
         </h1>
-        <select className="select select-bordered w-full max-w-xs font-bold">
-          <option>MNT - Mongolian Tugrik</option>
+        <select
+          className="select select-bordered w-full max-w-xs font-bold"
+          onChange={(e) => {
+            setCurrency(e.target.value);
+          }}
+        >
+          <option selected>MNT - Mongolian Tugrik</option>
           <option>USD - United States Dollar</option>
           <option>EUR - Eurozone countries</option>
           <option>JPY - Japanese Yen</option>
@@ -49,6 +83,9 @@ export const StepOne = ({ showLoader, setShowLoader, step, setStep }) => {
           onClick={() => {
             setStep((step += 1));
             setShowLoader("step2");
+            console.log("ID: ", newID);
+            console.log("currency: ", currency);
+            HandlerCurrency();
           }}
         >
           Confirm

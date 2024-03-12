@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { Logo } from "@/icons";
 
+const signInUrl = "http://localhost:3001/sign-in";
+
 export const Login = ({ showLoader, setShowLoader }) => {
   const router = useRouter();
 
@@ -19,8 +21,10 @@ export const Login = ({ showLoader, setShowLoader }) => {
     };
     console.log("options: ", options);
 
-    const fData = await fetch("http://localhost:3001/sign-in", options);
+    const fData = await fetch(signInUrl, options);
+    console.log("fData: ", fData);
     const jData = await fData.json();
+    console.log("jData: ", jData);
   };
 
   return (

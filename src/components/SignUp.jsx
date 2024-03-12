@@ -2,12 +2,14 @@ import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { Logo } from "../icons";
 
-export const SignUp = ({ showLoader, setShowLoader }) => {
+export const SignUp = ({ showLoader, setShowLoader, setNewID }) => {
   const router = useRouter();
 
   const AddUserURL = "http://localhost:3001/addUser";
 
   async function handlerSignUp(e) {
+    setShowLoader("loader");
+
     e.preventDefault();
 
     const data = {
@@ -16,6 +18,8 @@ export const SignUp = ({ showLoader, setShowLoader }) => {
       password: e.target.Password.value,
       id: uuidv4(),
     };
+
+    setNewID(data.id);
 
     const options = {
       method: "POST",
