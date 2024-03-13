@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import { categories } from "../utils/categories";
 
-async function handlerAddCategory(e) {
-  const AddCategoryURL = "http://localhost:3001/add-category";
+async function handlerAddAllCategory(e) {
+  const AddCategoryURL = "http://localhost:3001/add-all-category";
   const catName = e.name;
   const data = {
     name: catName,
@@ -55,7 +55,7 @@ export default function dbActions() {
         className="border-2"
         onClick={() =>
           categories.categories.forEach((e) => {
-            return handlerAddCategory(e);
+            return handlerAddAllCategory(e);
           })
         }
       >

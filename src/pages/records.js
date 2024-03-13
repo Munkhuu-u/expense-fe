@@ -22,6 +22,7 @@ import Record from "@/components/Record";
 
 function record() {
   const [transData, setTransData] = useState("");
+  const [cates, setCates] = useState("Anhnii utga");
 
   const sliderData = {
     MAX: 1000,
@@ -43,9 +44,18 @@ function record() {
     const trans = await data.json();
     setTransData(trans);
   }
+  async function getCategories() {
+    console.log("getCategories working fine");
+    const catesFetch = await fetch("http://localhost:3001/getCategories");
+    console.log("catesFetch: ", catesFetch);
+    const catesJSON = await catesFetch.json();
+    console.log("catesJSON: ", catesJSON);
+    setCates(catesJSON);
+  }
 
   useEffect(() => {
     getTodayTrans();
+    getCategories();
   }, []);
 
   const transToday = transData?.transaction?.filter((tr) => {
@@ -145,7 +155,16 @@ function record() {
               <p className="text-base-300">Clear</p>
             </div>
             <div className="flex flex-col gap-2 w-full">
-              {categories.categories.map((category) => {
+              {console.log("cates: ", cates)}
+              <button
+                className="border"
+                onClick={() => {
+                  getCategories();
+                }}
+              >
+                get all categories
+              </button>
+              {cates?.categoriesArr?.rows.map((category) => {
                 return (
                   <div className="flex flex-row justify-between items-center ">
                     <button className="flex gap-2 py-1 px-3">
