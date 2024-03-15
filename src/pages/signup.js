@@ -4,7 +4,7 @@ import React, { useState } from "react";
 export default function signUp() {
   const [showLoader, setShowLoader] = useState("signup");
   const [step, setStep] = useState(1);
-  const [newID, setNewID] = useState("");
+  const [signupDuplicate, setSignupDuplicate] = useState(false);
   return (
     <div>
       <div
@@ -15,7 +15,8 @@ export default function signUp() {
         <SignUp
           showLoader={showLoader}
           setShowLoader={setShowLoader}
-          setNewID={setNewID}
+          signupDuplicate={signupDuplicate}
+          setSignupDuplicate={setSignupDuplicate}
         />
       </div>
       <div className={`${showLoader == "loader" ? "block" : "hidden"}`}>
@@ -27,7 +28,6 @@ export default function signUp() {
           step={step}
           showLoader={showLoader}
           setShowLoader={setShowLoader}
-          newID={newID}
         />
       </div>
       <div className={`${showLoader == "step2" ? "pt-10 block" : "hidden"}`}>

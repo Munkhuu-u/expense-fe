@@ -2,15 +2,19 @@ import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { Logo } from "../icons";
 
-export const SignUp = ({ showLoader, setShowLoader, setNewID }) => {
+export const SignUp = ({
+  showLoader,
+  setShowLoader,
+  signupDuplicate,
+  setSignupDuplicate,
+}) => {
   const router = useRouter();
 
   const AddUserURL = "http://localhost:3001/addUser";
 
   async function handlerSignUp(e) {
-    setShowLoader("loader");
-
     e.preventDefault();
+    setShowLoader("loader");
 
     const data = {
       name: e.target.Name.value,
@@ -18,8 +22,6 @@ export const SignUp = ({ showLoader, setShowLoader, setNewID }) => {
       password: e.target.Password.value,
       id: uuidv4(),
     };
-
-    setNewID(data.id);
 
     const options = {
       method: "POST",
@@ -30,7 +32,17 @@ export const SignUp = ({ showLoader, setShowLoader, setNewID }) => {
     };
 
     const fetchData = await fetch(AddUserURL, options);
+    console.log("fetchData: ", fetchData);
     const fetchJSON = await fetchData.json();
+    console.log("fetchJSON: ", fetchJSON);
+    if (fetchJSON.message == "SUCCESS") {
+      localStorage.setItem("userID", data.id);
+      setSignupDuplicate(false);
+      setShowLoader("step1");
+    } else {
+      setShowLoader("signup");
+      setSignupDuplicate(true);
+    }
   }
 
   return (
@@ -87,6 +99,9 @@ export const SignUp = ({ showLoader, setShowLoader, setNewID }) => {
           >
             Sign In
           </span>
+        </div>
+        <div className={`text-error ${signupDuplicate ? "block" : "hidden"}`}>
+          Your email duplicated, please use another email
         </div>
       </div>
       <div className="w-1/2 bg-primary"></div>
