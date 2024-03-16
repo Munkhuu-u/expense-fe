@@ -1,13 +1,17 @@
 import { useRouter } from "next/router";
 import { Logo } from "@/icons";
+import Router from "next/router";
+import React, { useState } from "react";
 
 const signInUrl = "http://localhost:3001/sign-in";
 
-export const Login = ({ showLoader, setShowLoader }) => {
+export const Login = ({ setShowWhich }) => {
   const router = useRouter();
+  const [loginWrong, setLoginWrong] = useState(false);
 
   const HandlerLogin = async (e) => {
     e.preventDefault();
+    setShowWhich("loader");
     const data = {
       userName: e.target.mail.value,
       password: e.target.pass.value,
@@ -19,13 +23,40 @@ export const Login = ({ showLoader, setShowLoader }) => {
       },
       body: JSON.stringify(data),
     };
-    console.log("options: ", options);
 
     const fData = await fetch(signInUrl, options);
-    console.log("fData: ", fData);
     const jData = await fData.json();
     console.log("jData: ", jData);
+    if (jData.message == "SUCCESS") {
+      router.push("/dashboard");
+      localStorage.setItem("userID", jData.id);
+    } else {
+      setLoginWrong(true);
+    }
   };
+
+  // const HandlerInitCategory = async (e) => {
+  //   e.preventDefault();
+  //   const data = {
+  //     userName: e.target.mail.value,
+  //     password: e.target.pass.value,
+  //   };
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   };
+
+  //   const fData = await fetch(signInUrl, options);
+  //   const jData = await fData.json();
+  //   if (jData.message == "SUCCESS") {
+  //     router.push("/dashboard");
+  //   } else {
+  //     setLoginWrong(true);
+  //   }
+  // };
 
   return (
     <div class="w-full p-6 m-auto bg-white lg:max-w-md flex flex-col gap-10 mt-[278px]">
@@ -62,15 +93,14 @@ export const Login = ({ showLoader, setShowLoader }) => {
             class="w-full input input-bordered"
           />
         </div>
+        <div
+          className={`text-error text-center ${
+            loginWrong ? "block" : "hidden"
+          }`}
+        >
+          Wrong password, Please try again
+        </div>
         <div>
-          {/* <button
-            class="btn btn-block bg-primary rounded-3xl text-base-100 text-xl hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100"
-            onClick={() => {
-              HandlerLogin();
-            }}
-          >
-            Log in
-          </button> */}
           <input
             type="submit"
             class="btn btn-block bg-primary rounded-3xl text-base-100 text-xl hover:text-primary hover:border-primary hover:border-2 hover:bg-base-100"

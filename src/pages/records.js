@@ -20,9 +20,9 @@ import { categories } from "@/utils/categories";
 
 import Record from "@/components/Record";
 
-function record() {
+export default function record() {
   const [transData, setTransData] = useState("");
-  const [cates, setCates] = useState("Anhnii utga");
+  const [cates, setCates] = useState("");
 
   const sliderData = {
     MAX: 1000,
@@ -44,12 +44,18 @@ function record() {
     const trans = await data.json();
     setTransData(trans);
   }
+
   async function getCategories() {
-    console.log("getCategories working fine");
-    const catesFetch = await fetch("http://localhost:3001/getCategories");
-    console.log("catesFetch: ", catesFetch);
+    const getCategoriesURL = "http://localhost:3001/get-category";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: localStorage.getItem("userID") }),
+    };
+    const catesFetch = await fetch(getCategoriesURL, options);
     const catesJSON = await catesFetch.json();
-    console.log("catesJSON: ", catesJSON);
     setCates(catesJSON);
   }
 
@@ -155,7 +161,6 @@ function record() {
               <p className="text-base-300">Clear</p>
             </div>
             <div className="flex flex-col gap-2 w-full">
-              {console.log("cates: ", cates)}
               <button
                 className="border"
                 onClick={() => {
@@ -164,7 +169,7 @@ function record() {
               >
                 get all categories
               </button>
-              {cates?.categoriesArr?.rows.map((category) => {
+              {cates?.response?.rows.map((category) => {
                 return (
                   <div className="flex flex-row justify-between items-center ">
                     <button className="flex gap-2 py-1 px-3">
@@ -282,8 +287,6 @@ function record() {
     </div>
   );
 }
-
-export default record;
 
 record.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
